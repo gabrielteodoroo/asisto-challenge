@@ -41,16 +41,40 @@ export class PrismaUserRepository implements UserRepository {
     }, user.id);
   }
 
-  findById(id: string): Promise<User | null> {
-    throw new Error("Method not implemented.");
+  async findById(id: string): Promise<User | null> {
+    const user = await this.prismaService.user.findFirst({
+      where: { id }
+    });
+
+    if (!user) {
+      return null;
+    }
+
+    return new User({
+      name: user.name,
+      email: user.email,
+      password: user.password,
+    }, user.id);
   }
 
-  save(user: User): Promise<void> {
-    throw new Error("Method not implemented.");
+  async save(user: User): Promise<void> {
+    await this.prismaService.user.update({
+      where: { id: user.id },
+      data: {
+        name: user.name,
+        email: user.email,
+        password: user.password,
+      }
+    })
   }
 
   findMany(): Promise<User[]> {
-    throw new Error("Method not implemented.");
+    return this.prismaService.user.findMany().then(users => {
+      return users.map(user => new User({
+        name: user.name,
+        email: user.email,
+        password: user.password,
+      }, user.id));
+    });
   }
-
 }
