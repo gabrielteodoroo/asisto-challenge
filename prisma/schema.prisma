@@ -17,15 +17,16 @@ model User {
   id String @id @default(uuid()) @db.Uuid
 
   name      String
-  email     String   @unique
+  email     String     @unique
   password  String
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  createdAt DateTime   @default(now()) @map("created_at")
+  updatedAt DateTime   @updatedAt @map("updated_at")
+  Customer  Customer[]
 
   @@map("users")
 }
 
-model Client {
+model Customer {
   id String @id @default(uuid()) @db.Uuid
 
   name      String
@@ -33,5 +34,8 @@ model Client {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  @@map("clients")
+  userId String @db.Uuid
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("customers")
 }
