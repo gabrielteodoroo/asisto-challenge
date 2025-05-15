@@ -14,10 +14,11 @@ export class User {
   private props: UserSchema;
   private _id: string;
 
-  constructor(props: Replace<UserSchema, { createdAt?: Date }>, id?: string) {
+  constructor(props: Replace<UserSchema, { createdAt?: Date, updatedAt?: Date }>, id?: string) {
     this.props = {
       ...props,
       createdAt: props.createdAt || new Date(),
+      updatedAt: props.updatedAt || new Date(),
     };
     this._id = id || randomUUID();
   }
@@ -56,5 +57,9 @@ export class User {
 
   get updatedAt(): Date {
     return this.props.updatedAt;
+  }
+
+  set updatedAt(updatedAt: Date) {
+    this.props.updatedAt = updatedAt;
   }
 }
