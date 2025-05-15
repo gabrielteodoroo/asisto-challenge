@@ -6,7 +6,7 @@ import { DatabaseModule } from 'src/database/database.module';
 import { JwtService } from '@nestjs/jwt';
 
 @Module({
-  imports: [DatabaseModule],
+  imports: [DatabaseModule, UserModule],
   controllers: [UserController],
   providers: [{
     provide: UserService,
