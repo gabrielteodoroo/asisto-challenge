@@ -53,9 +53,9 @@ export class PrismaCustomerRepository implements CustomerRepository {
     }, customer.id);
   }
 
-  async findById(id: string): Promise<Customer | null> {
+  async findById({ id, userId }: { id: string, userId: string }): Promise<Customer | null> {
     const customer = await this.prismaService.customer.findFirst({
-      where: { id },
+      where: { id, userId },
       include: {
         user: true
       }
