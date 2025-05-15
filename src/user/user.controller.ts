@@ -1,34 +1,36 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, HttpCode, BadRequestException } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { UserPresenter } from 'src/presenters/user-presenter';
 
 @Controller('user')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(private readonly userService: UserService) { }
 
   @Post()
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.userService.create(createUserDto);
+  @HttpCode(201)
+  async create(@Body() body: CreateUserDto) {
+    const { email, name, password } = body
+
+    const response = await this.userService.create({
+      email, name, password
+    })
+
+    if (response.isLeft()) {
+      throw new BadRequestException(response.value.message)
+    }
+
+    return UserPresenter.toHTTP(response.value)
   }
 
   @Get()
-  findAll() {
-    return this.userService.findAll();
-  }
+  async findMany() {
+    const response = await this.userService.findMany();
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.userService.findOne(+id);
-  }
+    if (response.isLeft() || !response.value) {
+      return [];
+    }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.userService.update(+id, updateUserDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.userService.remove(+id);
+    return response.value.map(UserPresenter.toHTTP);
   }
 }
