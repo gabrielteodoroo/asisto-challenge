@@ -53,6 +53,11 @@ As principais tecnologias utilizadas para o desenvolvimento desta API são:
     npx prisma migrate dev
     ```
 
+7. Execute as seeds do projeto:
+
+    ```base
+    npm run seeds
+    ```
 ## Como Usar
 
 ### Executando o servidor de desenvolvimento
