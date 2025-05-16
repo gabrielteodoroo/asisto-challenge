@@ -1,0 +1,63 @@
+### Login para obter o token
+POST http://localhost:3000/user/login
+Content-Type: application/json
+
+{
+  "email": "johndoe@gmail.com",
+  "password": "123456"
+}
+
+### Rota protegida usando o token
+GET http://localhost:3000/user
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjNhNTdjY2ZkLTA2NTMtNDhkNi04NmFlLWMzYjhlNzdkZDc5MyIsImVtYWlsIjoiam9obmRvZUBnbWFpbC5jb20iLCJuYW1lIjoiSm9obiBEb2UiLCJpYXQiOjE3NDczMjg4NjksImV4cCI6MTc0NzM1NzY2OX0.xk3TgjBTr6p3ZSehIZ17-sQJv12HTCjYiAcLrJ46Ipg
+
+### Criar usuário
+POST http://localhost:3000/user
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "email": "johndoe@gmail.com",
+  "password": "123456"
+}
+
+### Criar customer
+POST http://localhost:3000/customer
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MTI0MzY2LTUxMDctNDA1My05MDA2LTU1N2M2YzA1ZTFmZCIsImVtYWlsIjoiam9obmRvZUBnbWFpbC5jb20iLCJuYW1lIjoiSm9obiBEb2UiLCJpYXQiOjE3NDc0MDEyNTUsImV4cCI6MTc0NzQzMDA1NX0.BW8S74jd3-rZx26dsc6H25HQkRAH1Or2zURbhFMmkgo
+Content-Type: application/json
+
+{
+  "name": "Cliente numero dois",
+  "email": "cliente2@email.com"
+}
+
+### Buscar todos os clientes do usuário logado
+GET http://localhost:3000/customer
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjFkZWZkZjM3LWI1NTktNDU2NS05MDhiLTYzY2ZlZWM2NGFkNyIsImVtYWlsIjoiam9obmRvZUBnbWFpbC5jb20iLCJuYW1lIjoiSm9obiBEb2UiLCJpYXQiOjE3NDczMzk0NzksImV4cCI6MTc0NzM2ODI3OX0.q3LI_YVarxRMQZBu3Y5wWs2qGi3v-XOxkxZOK4xiCmY
+
+### Buscar um cliente específico
+GET http://localhost:3000/customer/097daf0a-db39-434c-a8bf-2caf73ae44c8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjFkZWZkZjM3LWI1NTktNDU2NS05MDhiLTYzY2ZlZWM2NGFkNyIsImVtYWlsIjoiam9obmRvZUBnbWFpbC5jb20iLCJuYW1lIjoiSm9obiBEb2UiLCJpYXQiOjE3NDczMzk0NzksImV4cCI6MTc0NzM2ODI3OX0.q3LI_YVarxRMQZBu3Y5wWs2qGi3v-XOxkxZOK4xiCmY
+
+### Atualizar um cliente
+PUT http://localhost:3000/customer/097daf0a-db39-434c-a8bf-2caf73ae44c8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjFkZWZkZjM3LWI1NTktNDU2NS05MDhiLTYzY2ZlZWM2NGFkNyIsImVtYWlsIjoiam9obmRvZUBnbWFpbC5jb20iLCJuYW1lIjoiSm9obiBEb2UiLCJpYXQiOjE3NDczMzk0NzksImV4cCI6MTc0NzM2ODI3OX0.q3LI_YVarxRMQZBu3Y5wWs2qGi3v-XOxkxZOK4xiCmY
+Content-Type: application/json
+
+{
+  "name": "Cliente numero dois atualizado",
+  "email": "cliente2@email.com"
+}
+
+### Criar um produto para um cliente específico
+POST http://localhost:3000/product/6a32c6d9-2a86-40f6-bdd9-f586c0746b95
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MTI0MzY2LTUxMDctNDA1My05MDA2LTU1N2M2YzA1ZTFmZCIsImVtYWlsIjoiam9obmRvZUBnbWFpbC5jb20iLCJuYW1lIjoiSm9obiBEb2UiLCJpYXQiOjE3NDc0MDEzOTQsImV4cCI6MTc0NzQzMDE5NH0.noxbV2mSJ991aOILlK7m2tJQQWHDKSD-nf32aXE0RFE
+Content-Type: application/json
+
+{
+  "name": "Produto 4"
+}
+
+### Listar produtos de um cliente específico
+GET http://localhost:3000/product/6a32c6d9-2a86-40f6-bdd9-f586c0746b95
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MTI0MzY2LTUxMDctNDA1My05MDA2LTU1N2M2YzA1ZTFmZCIsImVtYWlsIjoiam9obmRvZUBnbWFpbC5jb20iLCJuYW1lIjoiSm9obiBEb2UiLCJpYXQiOjE3NDc0MDEzOTQsImV4cCI6MTc0NzQzMDE5NH0.noxbV2mSJ991aOILlK7m2tJQQWHDKSD-nf32aXE0RFE
