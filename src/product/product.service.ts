@@ -29,7 +29,6 @@ export class ProductService {
 
   async create({ customerId, name, description, userId }: CreateProductRequest): Promise<CreateProductResponse> {
     const customer = await this.customerRepository.findById({ id: customerId, userId });
-    console.log(customer)
     if (!customer) {
       return left(new NotFoundError())
     }
